@@ -5,7 +5,7 @@ class Panel extends Component {
   // Setting the component's initial state
   state = {
     image: `./images/${this.props.filename}.png`,
-    clicked: this.props.clicked
+    clicked: false
   };
 
 
@@ -15,10 +15,13 @@ class Panel extends Component {
 
     if (this.state.clicked) {
       //shuffle and reset current score
+      
     }
     else {
       this.setState({ clicked: true });
     }
+
+    console.log(this.state.clicked)
   };
 
   // The render method returns the JSX that should be rendered
