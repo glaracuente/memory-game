@@ -1,26 +1,27 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
+import Panel from './Components/Panel'
 
 class App extends Component {
+  state = {
+    characters : 
+    ['a', 'b', 'c', 'd', 
+    'e', 'f', 'g', 'h',
+    'i', 'j', 'k', 'l']
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      //<Panel image='./images/b.png'/>
+      //<Wrapper>
+       // <Title>Friends List</Title>
+       <div>
+        {this.state.characters.forEach(function(character) {
+          return <Panel filename={character}/>
+        })}
+        </div>
+      //</Wrapper>
     );
   }
 }
