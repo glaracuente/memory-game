@@ -1,6 +1,12 @@
-
 img {
   width: 200px;
   height: 200px;
   float: left;
+  border: 5px solid #f1f1f1;
+  border-radius: 3px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, .16), 0 3px 6px rgba(0, 0, 0, .23);
+}
+
+img:hover {
+  transform: scale(1.2);
 }

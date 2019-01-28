@@ -1,27 +1,33 @@
 import React, { Component } from "react";
-//import logo from './logo.svg';
 import "./App.css";
 import Panel from "./Components/Panel";
 import Nav from "./Components/Nav";
-import Form from "./Components/Form";
 
 class App extends Component {
   state = {
     topScore: 0,
     score: 0,
-    amount: 12,
+    level: "Normal",
     characters: []
   };
 
-  handleSubmit = () => {
-    console.log("submit");
-    const amount = 6;
-    this.setState({ amount });
-    this.createAndSetCharacterArray(this.state.amount);
-  };
+  componentWillMount() {
+    this.createAndSetCharacterArray();
+  }
 
-  createAndSetCharacterArray = amount => {
+  createAndSetCharacterArray = () => {
+    console.log("setting characters...");
+
     let characters = [];
+    let amount;
+
+    if (this.state.level === "Normal") {
+      amount = 12;
+    }
+    if (this.state.level === "Easy") {
+      amount = 6;
+    }
+
     for (let c = 0; c < amount; c++) {
       let character = {
         filename: `./images/${c}.png`,
@@ -32,16 +38,20 @@ class App extends Component {
       characters.push(character);
     }
 
-    //return characters;
     this.setState({ characters });
   };
 
+  // setlevel = level => {
+  //  this.setState({ level });
+  // };
+
   handleClick = char => {
-    //event.preventDefault();
+    console.log(this.state.characters);
     const characters = [...this.state.characters];
     const index = characters.indexOf(char);
 
     if (characters[index].clicked) {
+      this.createAndSetCharacterArray();
       this.setState({ score: 0 });
     } else {
       characters[index].clicked = true;
@@ -53,41 +63,41 @@ class App extends Component {
         this.setState({ topScore: newScore });
       }
     }
-
-    this.shuffle();
   };
 
-  shuffle = () => {
-    const characters = [...this.state.characters];
-    let currentIndex = characters.length;
+  shuffle = array => {
+    let currentIndex = array.length;
     let temporaryValue, randomIndex;
 
     while (0 !== currentIndex) {
-      // Pick a remaining element...
       randomIndex = Math.floor(Math.random() * currentIndex);
       currentIndex -= 1;
-
-      // And swap it with the current element.
-      temporaryValue = characters[currentIndex];
-      characters[currentIndex] = characters[randomIndex];
-      characters[randomIndex] = temporaryValue;
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
     }
 
-    this.setState({ characters });
+    return array;
   };
 
   render() {
+    const { characters } = this.state;
+    let shuffledCharacters = this.shuffle(characters);
+
     return (
       <div>
         <Nav score={this.state.score} topScore={this.state.topScore} />
-        <Form onSubmit={() => this.handleSubmit()} />
-        {this.state.characters.map(character => (
-          <Panel
-            key={character.id}
-            filename={character.filename}
-            onClick={() => this.handleClick(character)}
-          />
-        ))}
+        <div className="row justify-content-center mt-3">
+          <div className="col-11">
+            {shuffledCharacters.map(character => (
+              <Panel
+                key={character.id}
+                filename={character.filename}
+                onClick={() => this.handleClick(character)}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     );
   }
