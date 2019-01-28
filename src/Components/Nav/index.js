@@ -1,25 +1,17 @@
 import React, { Component } from "react";
+
 //import "./style.css";
 
 class Nav extends Component {
-  state = {
-
-  };
-
-
-
-  // The render method returns the JSX that should be rendered
   render() {
+    const { score, topScore } = this.props;
+
     return (
       <div>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-            </div>
-          </div>
+        <nav className="navbar navbar-expand-lg navbar-light bg-light">
+          <h1>
+            {score} -- {topScore}
+          </h1>
         </nav>
       </div>
     );
